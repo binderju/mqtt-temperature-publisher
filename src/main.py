@@ -35,6 +35,9 @@ def main():
     client = mqtt.Client()
     client.username_pw_set(mqtt_username, mqtt_password)
     client.connect(mqtt_server, mqtt_port, 60)
+    # Start a background thread to maintain the network connection so
+    # the broker doesn't drop us between publishes.
+    client.loop_start()
 
     while True:
         try:
